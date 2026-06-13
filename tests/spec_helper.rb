@@ -2,6 +2,7 @@
 
 require 'lexers'
 require 'parsers'
+require 'evaluator'
 # require "evaluator"
 
 def check_parser_errors(parser)
@@ -60,4 +61,48 @@ def test_branch(branch, value)
   statements = branch.statements
   assert_equal 1, statements.size
   test_identifier(statements[0].expression, value)
+end
+
+def test_eval(input)
+  program = create_program(input)
+  Evaluator.evaluate(program, Evaluator::Environment.new)
+end
+
+def test_integer(input, expected)
+  evaluated = test_eval(input)
+  test_integer_object(evaluated, expected)
+end
+
+def test_integer_object(evaluated, expected)
+  case evaluated
+  when Objects::MInteger
+    assert_equal expected, evaluated.value
+  else
+    raise "obj is not MInteger, got #{evaluated.class}, #{evaluated}"
+  end
+end
+
+def test_boolean(input, expected)
+  # p input
+  evaluated = test_eval(input)
+  case evaluated
+  when Objects::MBoolean
+    assert_equal expected, evaluated.value
+  else
+    raise "obj is not MBoolean, got #{evaluated.class}, #{evaluated}"
+  end
+end
+
+def test_string(input, expected)
+  evaluated = test_eval(input)
+  case evaluated
+  when Objects::MString
+    assert_equal expected, evaluated.value
+  else
+    raise "obj is not MString, got #{evaluated.class}, #{evaluated}"
+  end
+end
+
+def test_nil_object(obj)
+  assert_equal Objects::M_NULL, obj
 end
