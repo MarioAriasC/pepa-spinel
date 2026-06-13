@@ -11,6 +11,10 @@ Style/Documentation:
 Lint/DeprecatedConstants:
   Enabled: false
 
+Lint/MissingSuper:
+  Exclude:
+    - lib/past.rb
+
 Metrics/MethodLength:
   Enabled: false
 
