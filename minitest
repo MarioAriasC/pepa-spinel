@@ -1,0 +1,19 @@
+#!/usr/bin/env -S ruby -Ilib:test:.
+# frozen_string_literal: true
+
+# copied from https://sul.im/til/2024/11/11-ruby-minitest-command/
+
+files = []
+
+ARGV.delete_if do |arg|
+  keep = arg.end_with?('.rb')
+  files.push(arg) if keep
+
+  keep
+end
+
+files.each { |f| require(f) }
+
+ARGV.push('--help') if files.empty? && ARGV.empty?
+
+require 'minitest/autorun'
