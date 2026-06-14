@@ -2,6 +2,7 @@
 
 require_relative 'tokens'
 require_relative 'past'
+
 module Parsers
   module Precedence
     LOWEST = 0

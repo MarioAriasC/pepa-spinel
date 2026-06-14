@@ -1,3 +1,6 @@
+plugins:
+  - rubocop_spinel
+  - rubocop-performance
 AllCops:
   TargetRubyVersion: 4.0
   NewCops: enable
